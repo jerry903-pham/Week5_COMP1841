@@ -2,22 +2,16 @@
 include 'includes/DatabaseConnection.php';
 
 try {
-    // ----------------------------------------------------
-    // 1. HANDLE FORM SUBMISSION (UPDATE JOKE)
-    // ----------------------------------------------------
+
     if (isset($_POST['joketext'])) {
-        
-        // --- Image Upload Logic ---
-        $image_name = $_POST['current_image']; // Start with the existing image name
+        $image_name = $_POST['current_image'];
         
         if ($_FILES['image']['error'] === 0) {
-            // A new file was uploaded successfully
             $image_name = $_FILES['image']['name'];
-            $target_dir = '../week4/images/'; // Set your target directory
+            $target_dir = '../week4/images/';
             $target_file = $target_dir . basename($image_name);
             move_uploaded_file($_FILES['image']['tmp_name'], $target_file);
         } elseif (isset($_POST['remove_image']) && $_POST['remove_image'] == 'yes') {
-            // The user explicitly checked a box to remove the image
             $image_name = NULL;
         }
 
